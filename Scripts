@@ -1,0 +1,45 @@
+ use hospitalmanagementsystem;
+ CREATE TABLE User ( 
+ id INT(6) AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+ email VARCHAR(50) UNIQUE NOT NULL, 
+ password VARCHAR(8) NOT NULL ,
+ type varchar(10) NOT NULL,
+ phoneno varchar(12) NOT NULL);
+
+ CREATE TABLE Patient ( 
+ patient_id AUTO_INCREMENT PRIMARY KEY NOT NULL,
+ id INT(6) UNIQUE NOT NULL, 
+ patient_name VARCHAR(20) UNIQUE NOT NULL,
+ bloodgroup varchar(20) NOT NULL,
+ age int NOT NULL, 
+ FOREIGN KEY (id) REFERENCES user(id));
+
+ CREATE TABLE Doctor ( 
+ doctor_id INT(6) AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+ doctor_name VARCHAR(20) UNIQUE NOT NULL,
+ id INT(6) UNIQUE NOT NULL,
+ salary Double(8,4) NOT NULL, 
+ FOREIGN KEY (id) REFERENCES user(id));
+ 
+ CREATE TABLE Doctor_availability ( 
+ availability_id INT(6) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+ doctor_id INT(6) UNIQUE NOT NULL,
+ day_of_week varchar(10) NOT NULL, 
+ start_time DATETIME NOT NULL, 
+ end_time DATETIME NOT NULL, 
+ FOREIGN KEY (doctor_id) REFERENCES doctor(doctor_id));
+ 
+ CREATE TABLE Appointment_detail (
+ appointment_id INT(6) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+ doctor_id INT(6)  NOT NULL,
+ patient_id INT(6) NOT NULL,
+ appointment_time DATETIME NOT NULL,
+ booking_ref varchar(15),
+ reason varchar(150) NOT NULL,
+ FOREIGN KEY (patient_id) REFERENCES patient(patient_id),
+ FOREIGN KEY (doctor_id) REFERENCES doctor(doctor_id));
+ 
+ 
+
+
+
